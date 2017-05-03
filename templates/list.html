@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="content">
+  <h1>List of Services</h1>
+  <br>
+
+<div class="tables">
+<table style="display: table;" id="list">
+  <tr>
+    <th>Nodo Origen</th>
+    <th>Nodo Destino</th>
+    <th>PW_ID</th>
+    <th>Local Interface</th>
+    <th>Remote Interface</th>
+    <th>VLAN</th>
+    <th>VPLS_ID</th>
+  </tr>
+  {% for entry in entries %}
+  <tr>
+    <td>{{ entry.nodoOrigen }}</td>
+    <td>{{ entry.nodoDestino }}</td>
+    <td>{{ entry.pwId }}</td>
+    <td>{{ entry.localInterface }}</td>
+    <td>{{ entry.remoteInterface }}</td>
+    <td>{{ entry.vlan }}</td>
+    <td>{{ entry.vplsId }}</td>
+  </tr>
+  {% endfor %}
+</table>
+</div>
+</div>
+
+{% endblock %}
