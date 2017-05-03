@@ -66,6 +66,17 @@ def list():
         error = "Could not complete query: "+e.args[0]
         return render_template('list.html', error = error)
 
+@app.route('/applyFilter', methods=['POST'])
+def applyFilter():
+    try:
+        db = get_db()
+        entries = db.execute('select * from services where '+ request.form['filter']).fetchall()
+        return render_template('list.html', entries = entries)
+    except sqlite3.Error as e:
+        error = "Could not complete query: "+e.args[0]
+        return render_template('list.html', error = error)
+
+
 
 @app.route('/create', methods=['GET','POST'])
 def create():
@@ -74,15 +85,15 @@ def create():
     elif request.method == 'POST':
         try:
             db = get_db()
-            vals = [request.form['originNode'], request.form['destinationNode'],request.form['pwId'],request.form['localInterface'],request.form['remoteInterface'],request.form['vlan'],request.form['vplsId']
-            db.execute('insert into services (nodoOrigen, nodoDestino, pwId, localInterface, remoteInterface, vlan, vplsId) values (?,?,?,?,?,?,?)',vals])
+            # vals = [request.form['originNode'], request.form['destinationNode'],request.form['pwId'],request.form['localInterface'],request.form['remoteInterface'],request.form['vlan'],request.form['vplsId']
+            db.execute('insert into services (nodoOrigen, nodoDestino, pwId, localInterface, remoteInterface, vlan, vplsId) values (?,?,?,?,?,?,?)',[request.form['originNode'], request.form['destinationNode'],request.form['pwId'],request.form['localInterface'],request.form['remoteInterface'],request.form['vlan'],request.form['vplsId']])
             db.commit()
             if  request.form['vplsId'] == '':
                 print 'Crear Servicio como PW'
-                createPw(vals)
+                # createPw(vals)
             else:
                 print 'Crear Servicio como VPLS'
-                createVpls(vals)
+                # createVpls(vals)
 
             flash('Created successfully')
             return redirect(url_for('list'))

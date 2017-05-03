@@ -5,15 +5,25 @@
   <br>
 
 <div class="tables">
+
+  <form action="{{url_for('applyFilter')}}" method='POST'>
+<table>
+  <tr>
+    <td><input type="text" name="filter"  placeholder="Ex:vplsId = 'VLAN100'"></td>
+    <td><input type="submit" value="Apply Filter"></td>
+  </tr>
+</table>
+</form>
+<br>
 <table style="display: table;" id="list">
   <tr>
-    <th>Nodo Origen</th>
-    <th>Nodo Destino</th>
-    <th>PW_ID</th>
-    <th>Local Interface</th>
-    <th>Remote Interface</th>
-    <th>VLAN</th>
-    <th>VPLS_ID</th>
+    <th>nodoOrigen</th>
+    <th>nodoDestino</th>
+    <th>pwId</th>
+    <th>localInterface</th>
+    <th>remoteInterface</th>
+    <th>vlan</th>
+    <th>vplsId</th>
   </tr>
   {% for entry in entries %}
   <tr>
